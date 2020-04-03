@@ -7,7 +7,7 @@
     <artifactId>calendarist</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>requestclient</name>
+    <name>calendarist</name>
     <url>http://hothub.org/</url>
     <description>Calendarist For JAVA</description>
 
@@ -52,7 +52,7 @@
     </parent>
 
     <scm>
-        <url>git@github.com:opprime/requestclient.git</url>
+        <url>git@github.com:opprime/calendarist.git</url>
         <connection>scm:git:git@github.com:opprime/calendarist.git</connection>
         <developerConnection>scm:git:git@github.com:opprime/calendarist.git</developerConnection>
         <tag>HEAD</tag>
