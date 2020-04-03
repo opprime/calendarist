@@ -138,18 +138,18 @@ public class CalendaristUtils {
     }
 
     public static SolarDate solarFromInt(long g) {
-        long y = (10000 * g + 14780) / 3652425;
-        long ddd = g - (365 * y + y / 4 - y / 100 + y / 400);
+        long year = (10000 * g + 14780) / 3652425;
+        long ddd = g - (365 * year + year / 4 - year / 100 + year / 400);
         if (ddd < 0) {
-            y--;
-            ddd = g - (365 * y + y / 4 - y / 100 + y / 400);
+            year--;
+            ddd = g - (365 * year + year / 4 - year / 100 + year / 400);
         }
         long mi = (100 * ddd + 52) / 3060;
         long mm = (mi + 2) % 12 + 1;
-        y = y + (mi + 2) / 12;
+        year = year + (mi + 2) / 12;
         long dd = ddd - (mi * 306 + 5) / 10 + 1;
 
-        return new SolarDate((int) y, (int) mm, (int) dd);
+        return new SolarDate((int) year, (int) mm, (int) dd);
     }
 
 

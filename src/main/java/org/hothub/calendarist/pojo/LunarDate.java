@@ -1,12 +1,14 @@
 package org.hothub.calendarist.pojo;
 
+import org.hothub.calendarist.utils.CalendaristUtils;
+
 /**
  * 阴历日期
  */
 public class LunarDate extends CalendaristDate {
 
-    //该月是否是闰月
-    private boolean leap;
+    //当前月是否是闰月
+    private boolean leapMonthOfCurrent;
 
     //该年的闰月月份
     private int leapMonth;
@@ -20,17 +22,22 @@ public class LunarDate extends CalendaristDate {
     }
 
     public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis) {
+        this(year, month, day, hour, minute, second, millis, false, CalendaristUtils.leapMonth(year));
+    }
+
+    public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis, boolean leapMonthOfCurrent, int leapMonth) {
         super(year, month, day, hour, minute, second, millis);
+        this.leapMonthOfCurrent = leapMonthOfCurrent;
+        this.leapMonth = leapMonth;
     }
 
 
-
-    public boolean isLeap() {
-        return leap;
+    public boolean isLeapMonthOfCurrent() {
+        return leapMonthOfCurrent;
     }
 
-    public void setLeap(boolean leap) {
-        this.leap = leap;
+    public void setLeapMonthOfCurrent(boolean leapMonthOfCurrent) {
+        this.leapMonthOfCurrent = leapMonthOfCurrent;
     }
 
     public int getLeapMonth() {
@@ -54,7 +61,7 @@ public class LunarDate extends CalendaristDate {
         sb.append(", second=").append(second);
         sb.append(", millis=").append(millis);
         sb.append(", timestamp=").append(timestamp);
-        sb.append(", leap=").append(leap);
+        sb.append(", leapMonthOfCurrent=").append(leapMonthOfCurrent);
         sb.append(", leapMonth=").append(leapMonth);
         sb.append('}');
         return sb.toString();

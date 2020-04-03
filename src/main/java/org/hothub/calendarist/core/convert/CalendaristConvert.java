@@ -7,7 +7,6 @@ import org.hothub.calendarist.pojo.LunarDate;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * 农历工具类
@@ -107,22 +106,17 @@ public class CalendaristConvert {
         calendar.setTimeInMillis(timeMillis);
 
 
-        LunarDate lunarDate = new LunarDate(
+        return new LunarDate(
                 year,
                 month,
                 day,
                 calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE),
                 calendar.get(Calendar.SECOND),
-                calendar.get(Calendar.MILLISECOND)
+                calendar.get(Calendar.MILLISECOND),
+                leap,
+                leapMonth
         );
-
-        lunarDate.setTimestamp(timeMillis);
-
-        lunarDate.setLeap(leap);
-        lunarDate.setLeapMonth(leapMonth);
-
-        return lunarDate;
     }
 
 
@@ -143,7 +137,7 @@ public class CalendaristConvert {
         int offset = 0;
         int loopend = leap;
 
-        if (!lunarDate.isLeap()) {
+        if (!lunarDate.isLeapMonthOfCurrent()) {
             if (lunarDate.getMonth() <= leap || leap == 0) {
                 loopend = lunarDate.getMonth() - 1;
             } else {
@@ -162,15 +156,24 @@ public class CalendaristConvert {
         int m = CalendaristUtils.getBitInt(solar11, 4, 5);
         int d = CalendaristUtils.getBitInt(solar11, 5, 0);
 
+        long g = CalendaristUtils.solarToInt(y, m, d) + offset - 1;
 
-        SolarDate solarDate = CalendaristUtils.solarFromInt(CalendaristUtils.solarToInt(y, m, d) + offset - 1);
+        long year = (10000 * g + 14780) / 3652425;
+        long ddd = g - (365 * year + year / 4 - year / 100 + year / 400);
+        if (ddd < 0) {
+            year--;
+            ddd = g - (365 * year + year / 4 - year / 100 + year / 400);
+        }
+        long mi = (100 * ddd + 52) / 3060;
+        long mm = (mi + 2) % 12 + 1;
+        year = year + (mi + 2) / 12;
+        long dd = ddd - (mi * 306 + 5) / 10 + 1;
 
-        solarDate.setHour(lunarDate.getHour());
-        solarDate.setMinute(lunarDate.getMinute());
-        solarDate.setSecond(lunarDate.getSecond());
-        solarDate.setMillis(lunarDate.getMillis());
-
-        return solarDate;
+        return new SolarDate(
+                (int) year, (int) mm, (int) dd,
+                lunarDate.getHour(), lunarDate.getMinute(), lunarDate.getSecond(),
+                lunarDate.getMillis()
+        );
     }
 
 

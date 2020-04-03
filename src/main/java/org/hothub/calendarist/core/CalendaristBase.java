@@ -11,7 +11,7 @@ public abstract class CalendaristBase {
      */
     protected int from;
 
-    protected int[] fields = new int[20];
+    protected int[] fields = new int[25];
 
 
     public void set(int field, int value) {
