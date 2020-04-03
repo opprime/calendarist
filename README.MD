@@ -1,8 +1,8 @@
 # 日期计算家，可实现阳历、阴历、干支历的相互转换
 
 
-![maven](https://img.shields.io/maven-central/v/org.hothub/requestclient.svg)
-![license](https://img.shields.io/github/license/opprime/requestclient.svg)
+![maven](https://img.shields.io/maven-central/v/org.hothub/calendarist.svg)
+![license](https://img.shields.io/github/license/opprime/calendarist.svg)
 
 
 ## 使用方法
