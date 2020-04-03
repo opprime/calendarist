@@ -23,20 +23,18 @@
 
 ## 代码示例：
 
-### 阳历转阴历：
+### 阳历转阴历、干支历：
 ```
-LunarCalendarist calendarist = Calendarist.fromSolar(2020, 1, 1, 12, 15, 55, 58);
+Calendarist calendarist = Calendarist.fromSolar(2020, 1, 1, 12, 15, 55, 58);
 LunarDate lunarDate = calendarist.toLunar();
-```
-
-### 阳历转干支：
-```
-LunarCalendarist calendarist = Calendarist.fromSolar(2020, 1, 1, 12, 15, 55, 58);
-LunarDate lunarDate = calendarist.toLunar();
-```
-
-### 阴历转阳历：
-```
-SolarCalendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 58);
 SolarDate solarDate = calendarist.toSolar();
+CycleDate cycleDate = calendarist.toCycle();
+```
+
+### 阴历转阳历、干支历：
+```
+Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 58);
+LunarDate lunarDate = calendarist.toLunar();
+SolarDate solarDate = calendarist.toSolar();
+CycleDate cycleDate = calendarist.toCycle();
 ```
