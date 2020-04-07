@@ -8,11 +8,11 @@
 ## 使用方法
 >Maven引用
 ```
-    <dependency>
-        <groupId>org.hothub</groupId>
-        <artifactId>calendarist</artifactId>
-        <version>1.0.2</version>
-    </dependency>
+<dependency>
+    <groupId>org.hothub</groupId>
+    <artifactId>calendarist</artifactId>
+    <version>1.0.2</version>
+</dependency>
 ```
 
 ## 功能介绍
