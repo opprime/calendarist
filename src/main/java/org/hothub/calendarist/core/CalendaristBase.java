@@ -22,4 +22,5 @@ public abstract class CalendaristBase {
     public void setFrom(int from) {
         this.from = from;
     }
+
 }

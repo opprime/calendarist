@@ -6,6 +6,8 @@ import org.hothub.calendarist.pojo.CycleDate;
 import org.hothub.calendarist.pojo.LunarDate;
 import org.hothub.calendarist.pojo.SolarDate;
 
+import java.util.Calendar;
+
 
 public class Calendarist extends CalendaristBase {
 
@@ -73,7 +75,7 @@ public class Calendarist extends CalendaristBase {
 
         calendarist.set(YEAR, year);
         calendarist.set(MONTH, month);
-        calendarist.set(DATE, day);
+        calendarist.set(DAY_OF_MONTH, day);
         calendarist.set(HOUR_OF_DAY, hour);
         calendarist.set(MINUTE, minute);
         calendarist.set(SECOND, second);
@@ -87,6 +89,32 @@ public class Calendarist extends CalendaristBase {
         return calendarist;
     }
 
+
+    /**
+     * 从阳历时间戳转换
+     *
+     * @param timeMillis 阳历时间戳
+     * @return {@link Calendarist}
+     */
+    public static Calendarist fromSolar(Long timeMillis) {
+        if (timeMillis == null) {
+            throw new IllegalArgumentException("timemillis must not be null");
+        }
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTimeInMillis(timeMillis);
+
+        return fromSolar(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                calendar.get(Calendar.SECOND),
+                calendar.get(Calendar.MILLISECOND)
+        );
+    }
 
     /**
      * 从阳历开始转换
@@ -109,7 +137,7 @@ public class Calendarist extends CalendaristBase {
 
         calendarist.set(YEAR, year);
         calendarist.set(MONTH, month);
-        calendarist.set(DATE, day);
+        calendarist.set(DAY_OF_MONTH, day);
         calendarist.set(HOUR_OF_DAY, hour);
         calendarist.set(MINUTE, minute);
         calendarist.set(SECOND, second);
@@ -130,7 +158,7 @@ public class Calendarist extends CalendaristBase {
                 : new LunarDate(
                     fields[Calendarist.YEAR],
                     fields[Calendarist.MONTH],
-                    fields[Calendarist.DATE],
+                    fields[Calendarist.DAY_OF_MONTH],
                     fields[Calendarist.HOUR_OF_DAY],
                     fields[Calendarist.MINUTE],
                     fields[Calendarist.SECOND],
@@ -145,7 +173,7 @@ public class Calendarist extends CalendaristBase {
                 ? new SolarDate(
                     fields[Calendarist.YEAR],
                     fields[Calendarist.MONTH],
-                    fields[Calendarist.DATE],
+                    fields[Calendarist.DAY_OF_MONTH],
                     fields[Calendarist.HOUR_OF_DAY],
                     fields[Calendarist.MINUTE],
                     fields[Calendarist.SECOND],
