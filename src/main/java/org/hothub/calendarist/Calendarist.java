@@ -12,43 +12,6 @@ import java.util.Calendar;
 public class Calendarist extends CalendaristBase {
 
 
-    public final static int YEAR = 1;
-
-    public final static int MONTH = 2;
-
-    public final static int WEEK_OF_YEAR = 3;
-
-    public final static int WEEK_OF_MONTH = 4;
-
-    public final static int DATE = 5;
-
-    public final static int DAY_OF_MONTH = 5;
-
-    public final static int DAY_OF_YEAR = 6;
-
-    public final static int DAY_OF_WEEK = 7;
-
-    public final static int DAY_OF_WEEK_IN_MONTH = 8;
-
-    public final static int AM_PM = 9;
-
-    public final static int HOUR = 10;
-
-    public final static int HOUR_OF_DAY = 11;
-
-    public final static int MINUTE = 12;
-
-    public final static int SECOND = 13;
-
-    public final static int MILLISECOND = 14;
-
-    public final static int TIMEMILLIS = 15;
-
-    public final static int LEAP_MONTH_OF_CURRENT = 21;
-
-    public final static int LEAP_MONTH = 22;
-
-
 
     /**
      * 从阴历开始转换
@@ -184,38 +147,6 @@ public class Calendarist extends CalendaristBase {
 
     public CycleDate toCycle() {
         return CalendaristConvert.toCycle(toLunar());
-    }
-
-
-
-    private static void validate(int year, int month, int day, int hour, int minute, int second, int millis) {
-        if (year < 1900 || year > 2100) {
-            throw new IllegalArgumentException("the param 'year' must between 1900 and 2100");
-        }
-
-        if (month < 1 || month > 12) {
-            throw new IllegalArgumentException("the param 'month' must between 1 and 12");
-        }
-
-        if (day < 1 || day > 31) {
-            throw new IllegalArgumentException("the param 'day' must between 1 and 31");
-        }
-
-        if (hour < 0 || hour > 23) {
-            throw new IllegalArgumentException("the param 'hour' must between 0 and 23");
-        }
-
-        if (minute < 0 || minute > 59) {
-            throw new IllegalArgumentException("the param 'minute' must between 0 and 59");
-        }
-
-        if (second < 0 || second > 59) {
-            throw new IllegalArgumentException("the param 'second' must between 0 and 59");
-        }
-
-        if (millis < 0 || millis > 999) {
-            throw new IllegalArgumentException("the param 'millis' must between 0 and 999");
-        }
     }
 
 

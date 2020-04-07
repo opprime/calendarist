@@ -11,7 +11,7 @@
 <dependency>
     <groupId>org.hothub</groupId>
     <artifactId>calendarist</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 

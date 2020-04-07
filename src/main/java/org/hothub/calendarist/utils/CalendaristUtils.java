@@ -50,11 +50,13 @@ public class CalendaristUtils {
         int hourIndex = hourZhi(cycleHour);
 
         if (hourIndex > 10) {
-            return CalendaristConstants.TIANGAN_INFO[hourIndex - 10 + (index - 1) * 2] + CalendaristConstants.DIZHI_INFO[hourZhi(cycleHour)];
+            return CalendaristConstants.TIANGAN_INFO[hourIndex - 10 + (index - 1) * 2] + CalendaristConstants.DIZHI_INFO[hourIndex];
         } else {
             hourIndex = hourIndex + (index - 1) * 2;
 
-            return CalendaristConstants.TIANGAN_INFO[hourIndex >= 10 ? hourIndex - 10 : hourIndex] + CalendaristConstants.DIZHI_INFO[hourZhi(cycleHour)];
+            hourIndex = hourIndex < 0 ? 0 : hourIndex;
+
+            return CalendaristConstants.TIANGAN_INFO[hourIndex >= 10 ? hourIndex - 10 : hourIndex] + CalendaristConstants.DIZHI_INFO[hourIndex];
         }
     }
 
