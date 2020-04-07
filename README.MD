@@ -25,17 +25,26 @@
 
 ### 阳历转阴历、干支历：
 ```
+//设置要转换的阳历日期
 Calendarist calendarist = Calendarist.fromSolar(2020, 1, 1, 12, 15, 55, 58);
+
+//转阴历
 LunarDate lunarDate = calendarist.toLunar();
+//转阳历
 SolarDate solarDate = calendarist.toSolar();
+//转干支历
 CycleDate cycleDate = calendarist.toCycle();
 ```
 
 ### 阴历转阳历、干支历：
 ```
+//设置要转换的阴历日期
 Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 58);
+//转阴历
 LunarDate lunarDate = calendarist.toLunar();
+//转阳历
 SolarDate solarDate = calendarist.toSolar();
+//转干支历
 CycleDate cycleDate = calendarist.toCycle();
 ```
 
@@ -43,19 +52,24 @@ CycleDate cycleDate = calendarist.toCycle();
 
 ### 阳历转阴历、干支历：
 ```
+//设置要转换的阳历日期
 Calendarist calendarist = Calendarist.fromSolar(2020, 1, 1);
 calendarist.set(Calendarist.HOUR, 12);
 calendarist.set(Calendarist.MINUTE, 15);
 calendarist.set(Calendarist.SECOND, 55);
 calendarist.set(Calendarist.MILLISECOND, 58);
 
+//转阴历
 LunarDate lunarDate = calendarist.toLunar();
+//转阳历
 SolarDate solarDate = calendarist.toSolar();
+//转干支历
 CycleDate cycleDate = calendarist.toCycle();
 ```
 
 ### 阴历转阳历、干支历：
 ```
+//设置要转换的阴历日期
 Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 58);
 calendarist.set(Calendarist.HOUR, 12);
 calendarist.set(Calendarist.MINUTE, 15);
@@ -66,7 +80,10 @@ calendarist.set(Calendarist.LEAP_MONTH_OF_CURRENT, 1)
 //从阴历转换时，要指定本年的闰月月份，为0时表示本年无闰月，默认为0
 calendarist.set(Calendarist.LEAP_MONTH, 4);
 
+//转阴历
 LunarDate lunarDate = calendarist.toLunar();
+//转阳历
 SolarDate solarDate = calendarist.toSolar();
+//转干支历
 CycleDate cycleDate = calendarist.toCycle();
 ```
