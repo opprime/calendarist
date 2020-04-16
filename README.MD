@@ -52,7 +52,7 @@ CycleDate cycleDate = calendarist.toCycle();
 
 ### 阴历转阳历、干支历：
 ```
-//设置要转换的阴历日期
+//设置要转换的阴历日期，且需设置指定月是否是闰月及指定年的闰月月份
 Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 580, false, 4);
 
 //转阴历
@@ -84,7 +84,7 @@ CycleDate cycleDate = calendarist.toCycle();
 
 ### 阴历转阳历、干支历：
 ```
-//设置要转换的阴历日期
+//设置要转换的阴历日期，且需设置指定月是否是闰月及指定年的闰月月份
 Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 58);
 calendarist.set(Calendarist.HOUR, 12);
 calendarist.set(Calendarist.MINUTE, 15);
