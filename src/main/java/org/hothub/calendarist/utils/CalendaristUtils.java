@@ -13,11 +13,11 @@ public class CalendaristUtils {
     /**
      * 干支日期中的年月日转化为干支
      *
-     * @param value 年 OR 月 OR 日
+     * @param lunarValue 年 OR 月 OR 日
      * @return String
      */
-    public static String ganZhi(int value) {
-        return CalendaristConstants.TIANGAN_INFO[value % 10] + CalendaristConstants.DIZHI_INFO[value % 12];
+    public static String ganZhi(int lunarValue) {
+        return CalendaristConstants.TIANGAN_INFO[lunarValue % 10] + CalendaristConstants.DIZHI_INFO[lunarValue % 12];
     }
 
 
@@ -65,31 +65,31 @@ public class CalendaristUtils {
     /**
      * 返回小时对应的支的索引
      *
-     * @param hour 干支日期的小时数
+     * @param lunarHour 干支日期的小时数
      * @return int
      */
-    public static int hourZhi(int hour) {
-        if (hour >= 23 || hour < 1) {
+    public static int hourZhi(int lunarHour) {
+        if (lunarHour >= 23 || lunarHour < 1) {
             return 0;
-        } else if (hour < 3) {
+        } else if (lunarHour < 3) {
             return 1;
-        } else if (hour < 5) {
+        } else if (lunarHour < 5) {
             return 2;
-        } else if (hour < 7) {
+        } else if (lunarHour < 7) {
             return 3;
-        } else if (hour < 9) {
+        } else if (lunarHour < 9) {
             return 4;
-        } else if (hour < 11) {
+        } else if (lunarHour < 11) {
             return 5;
-        } else if (hour < 13) {
+        } else if (lunarHour < 13) {
             return 6;
-        } else if (hour < 15) {
+        } else if (lunarHour < 15) {
             return 7;
-        } else if (hour < 17) {
+        } else if (lunarHour < 17) {
             return 8;
-        } else if (hour < 19) {
+        } else if (lunarHour < 19) {
             return 9;
-        } else if (hour < 21) {
+        } else if (lunarHour < 21) {
             return 10;
         } else {
             return 11;
@@ -99,33 +99,33 @@ public class CalendaristUtils {
 
 
     /**
-     * 获取某年的春节当天的阳历日期
+     * 获取某阳历年的春节当天的阳历日期
      *
-     * @param year 年份
-     * @return {@link SolarDate}
+     * @param solarYear 阳历年份
+     * @return int
      */
-    public static int chineseNewYear(Integer year) {
-        if (year > 2100 || year < 1900) {
+    public static int chineseNewYear(Integer solarYear) {
+        if (solarYear > 2100 || solarYear < 1900) {
             throw new RuntimeException("the year should between 1900 and 2100!");
         }
 
-        return CalendaristConstants.CHINESE_NEW_YEAR[year - CalendaristConstants.MIN_YEAR];
+        return CalendaristConstants.CHINESE_NEW_YEAR[solarYear - CalendaristConstants.MIN_YEAR];
     }
 
 
 
     /**
-     * 获取某年的春节当天的阳历日期
+     * 获取某阳历年的春节当天的阳历时间戳
      *
-     * @param year 年份
-     * @return {@link SolarDate}
+     * @param solarYear 年份
+     * @return long
      */
-    public static long chineseNewYearTimestamp(Integer year) {
-        if (year > 2100 || year < 1900) {
+    public static long chineseNewYearTimestamp(Integer solarYear) {
+        if (solarYear > 2100 || solarYear < 1900) {
             throw new RuntimeException("the year should between 1900 and 2100!");
         }
 
-        return CalendaristConstants.CHINESE_NEW_YEAR_TIMESTAMP[year - CalendaristConstants.MIN_YEAR];
+        return CalendaristConstants.CHINESE_NEW_YEAR_TIMESTAMP[solarYear - CalendaristConstants.MIN_YEAR];
     }
 
 
@@ -168,7 +168,7 @@ public class CalendaristUtils {
      *
      * @param solarYear 阳历年份
      * @param solarMonth 阳历月份
-     * @return
+     * @return int
      */
     public static int getFirstTerm(int solarYear, int solarMonth) {
         long times = 31556925974L * (solarYear - 1900) + CalendaristConstants.SOLAR_TERM_INFO[(solarMonth - 1) * 2] * 60000L + ((long) 0.7 * (solarYear - 1900));

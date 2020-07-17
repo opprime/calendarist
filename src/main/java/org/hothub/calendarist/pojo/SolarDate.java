@@ -1,5 +1,6 @@
 package org.hothub.calendarist.pojo;
 
+import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -7,6 +8,9 @@ import java.util.Locale;
  * 阳历日期
  */
 public class SolarDate extends CalendaristDate {
+
+    //星期
+    private DayOfWeek dayOfWeek;
 
 
     public SolarDate() {
@@ -24,15 +28,35 @@ public class SolarDate extends CalendaristDate {
         calendar.set(Calendar.MILLISECOND, millis);
 
         this.timestamp = calendar.getTimeInMillis();
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        this.dayOfWeek = DayOfWeek.of(dayOfWeek == 1 ? 7 : dayOfWeek - 1);
     }
 
 
-    public long getTimestamp() {
-        return timestamp;
+
+    public int getYear() {
+        return year;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public int getHour() {
@@ -67,43 +91,36 @@ public class SolarDate extends CalendaristDate {
         this.millis = millis;
     }
 
-    public int getYear() {
-        return year;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public int getMonth() {
-        return month;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
 
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("SolarDate{");
-        sb.append("year=").append(year);
-        sb.append(", month=").append(month);
-        sb.append(", day=").append(day);
-        sb.append(", hour=").append(hour);
-        sb.append(", minute=").append(minute);
-        sb.append(", second=").append(second);
-        sb.append(", millis=").append(millis);
-        sb.append(", timestamp=").append(timestamp);
-        sb.append('}');
-        return sb.toString();
+        return "SolarDate{" +
+                "dayOfWeek=" + dayOfWeek +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
+                ", millis=" + millis +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

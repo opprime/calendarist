@@ -1,4 +1,4 @@
-# 日期计算家，可实现阳历、阴历、干支历的相互转换
+# 历法计算家，可实现阳历、阴历、干支历的相互转换
 
 
 ![maven](https://img.shields.io/maven-central/v/org.hothub/calendarist.svg)
@@ -11,7 +11,7 @@
 <dependency>
     <groupId>org.hothub</groupId>
     <artifactId>calendarist</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 

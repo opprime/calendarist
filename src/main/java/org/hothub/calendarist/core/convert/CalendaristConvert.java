@@ -9,7 +9,7 @@ import org.hothub.calendarist.utils.CalendaristUtils;
 import java.util.Calendar;
 
 /**
- * 农历工具类
+ * 转换工具类
  *
  * 参考：
  * https://blog.csdn.net/FengRenYuanDeFZ/article/details/100162807
@@ -230,7 +230,8 @@ public class CalendaristConvert {
         }
 
         // 月柱 1900年1月小寒以前为 丙子月(60进制12)
-        int firstNode = CalendaristUtils.getFirstTerm(solarDate.getYear(), solarDate.getMonth()); // 返回当月「节」为几日开始
+        // 返回当月「节」为几日开始
+        int firstNode = CalendaristUtils.getFirstTerm(solarDate.getYear(), solarDate.getMonth());
         int cM = (solarDate.getYear() - 1900) * 12 + (solarDate.getMonth() - 1) + 12;
 
         // 依节气月柱, 以「节」为界
