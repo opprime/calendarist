@@ -34,30 +34,25 @@ public class CalendaristUtils {
 
 
     /**
-     * 干支日期中的小时转为干支
+     * 干支日期中的小时转为干支时
      *
      * @param cycleDay 干支日期的天
      * @param cycleHour 干支日期的小时
      * @return String
      */
     public static String hourGanZhi(int cycleDay, int cycleHour) {
-        int index = (cycleDay % 10) + 1;
+        int index = (cycleDay % 10);
 
         // 五个为一周期
         index = index % 5;
 
-        //小时对应的索引
-        int hourIndex = hourZhi(cycleHour);
+        //小时对应的地支索引
+        int hourOfDiZhiIndex = hourZhi(cycleHour);
 
-        if (hourIndex > 10) {
-            return CalendaristConstants.TIANGAN_INFO[hourIndex - 10 + (index - 1) * 2] + CalendaristConstants.DIZHI_INFO[hourIndex];
-        } else {
-            hourIndex = hourIndex + (index - 1) * 2;
+        //小时对应的天干索引
+        int hourOfTianGanIndex = (hourOfDiZhiIndex) + (index * 12);
 
-            hourIndex = hourIndex < 0 ? 0 : hourIndex;
-
-            return CalendaristConstants.TIANGAN_INFO[hourIndex >= 10 ? hourIndex - 10 : hourIndex] + CalendaristConstants.DIZHI_INFO[hourIndex];
-        }
+        return CalendaristConstants.TIANGAN_INFO[hourOfTianGanIndex % 10] + CalendaristConstants.DIZHI_INFO[hourOfDiZhiIndex];
     }
 
 
