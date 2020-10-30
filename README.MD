@@ -89,8 +89,11 @@ calendarist.set(Calendarist.HOUR, 12);
 calendarist.set(Calendarist.MINUTE, 15);
 calendarist.set(Calendarist.SECOND, 55);
 calendarist.set(Calendarist.MILLISECOND, 58);
-//从阴历转换时，要指定当前月是否是闰月
-calendarist.itsLeapMonth(true)
+//从阴历转换时，要指定当前月是否是闰月，建议使用第一种方式
+方式一，当值为false时表示指定月非闰月，为true时表示指定月是闰月，默认为false：
+calendarist.itsLeapMonth(true);
+方式二，当值为0时表示指定月非闰月，为1时表示指定月是闰月，默认为0：
+calendarist.set(Calendarist.LEAP_MONTH_OF_CURRENT, 1);
 
 //转阴历
 LunarDate lunarDate = calendarist.toLunar();
