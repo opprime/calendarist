@@ -7,11 +7,11 @@ import org.hothub.calendarist.utils.CalendaristUtils;
  */
 public class LunarDate extends CalendaristDate {
 
-    //当前月是否是闰月
-    private boolean leapMonthOfCurrent;
-
     //该年的闰月月份
     private int leapMonth;
+
+    //当前月是否是闰月
+    private boolean itsLeapMonth;
 
 
     public LunarDate() {
@@ -22,23 +22,19 @@ public class LunarDate extends CalendaristDate {
     }
 
     public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis) {
-        this(year, month, day, hour, minute, second, millis, false, CalendaristUtils.leapMonth(year));
+        this(year, month, day, hour, minute, second, millis, false);
     }
 
-    public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis, boolean leapMonthOfCurrent, int leapMonth) {
+    public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis, boolean itsLeapMonth) {
         super(year, month, day, hour, minute, second, millis);
-        this.leapMonthOfCurrent = leapMonthOfCurrent;
-        this.leapMonth = leapMonth;
+
+        //获取该年真实的闰月月份
+        this.leapMonth = CalendaristUtils.leapMonth(year);
+
+        //如果设置了当前月是闰月，则要验证真实性
+        this.itsLeapMonth = itsLeapMonth && this.leapMonth != 0 && this.leapMonth == month;
     }
 
-
-    public boolean isLeapMonthOfCurrent() {
-        return leapMonthOfCurrent;
-    }
-
-    public void setLeapMonthOfCurrent(boolean leapMonthOfCurrent) {
-        this.leapMonthOfCurrent = leapMonthOfCurrent;
-    }
 
     public int getLeapMonth() {
         return leapMonth;
@@ -46,6 +42,14 @@ public class LunarDate extends CalendaristDate {
 
     public void setLeapMonth(int leapMonth) {
         this.leapMonth = leapMonth;
+    }
+
+    public boolean isItsLeapMonth() {
+        return itsLeapMonth;
+    }
+
+    public void setItsLeapMonth(boolean itsLeapMonth) {
+        this.itsLeapMonth = itsLeapMonth;
     }
 
 
@@ -61,7 +65,7 @@ public class LunarDate extends CalendaristDate {
         sb.append(", second=").append(second);
         sb.append(", millis=").append(millis);
         sb.append(", timestamp=").append(timestamp);
-        sb.append(", leapMonthOfCurrent=").append(leapMonthOfCurrent);
+        sb.append(", itsLeapMonth=").append(itsLeapMonth);
         sb.append(", leapMonth=").append(leapMonth);
         sb.append('}');
         return sb.toString();

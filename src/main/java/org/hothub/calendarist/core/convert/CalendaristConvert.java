@@ -114,8 +114,7 @@ public class CalendaristConvert {
                 calendar.get(Calendar.MINUTE),
                 calendar.get(Calendar.SECOND),
                 calendar.get(Calendar.MILLISECOND),
-                leap,
-                leapMonth
+                leap
         );
     }
 
@@ -137,7 +136,7 @@ public class CalendaristConvert {
         int offset = 0;
         int loopend = leap;
 
-        if (!lunarDate.isLeapMonthOfCurrent()) {
+        if (!lunarDate.isItsLeapMonth()) {
             if (lunarDate.getMonth() <= leap || leap == 0) {
                 loopend = lunarDate.getMonth() - 1;
             } else {

@@ -1,5 +1,6 @@
 package org.hothub.calendarist;
 
+import org.hothub.calendarist.base.ConvertFromType;
 import org.hothub.calendarist.core.CalendaristBase;
 import org.hothub.calendarist.core.convert.CalendaristConvert;
 import org.hothub.calendarist.pojo.CycleDate;
@@ -20,7 +21,11 @@ public class Calendarist extends CalendaristBase {
      * @return {@link Calendarist}
      */
     public static Calendarist fromLunar(LunarDate lunarDate) {
-        return fromLunar(lunarDate.getYear(), lunarDate.getMonth(), lunarDate.getDay(), lunarDate.getHour(), lunarDate.getMinute(), lunarDate.getSecond(), lunarDate.getMillis());
+        if (lunarDate == null) {
+            throw new IllegalArgumentException("the argument 'lunarDate' must not be null");
+        }
+
+        return fromLunar(lunarDate.getYear(), lunarDate.getMonth(), lunarDate.getDay(), lunarDate.getHour(), lunarDate.getMinute(), lunarDate.getSecond(), lunarDate.getMillis(), lunarDate.isItsLeapMonth());
     }
 
     public static Calendarist fromLunar(int year, int month, int day) {
@@ -28,10 +33,10 @@ public class Calendarist extends CalendaristBase {
     }
 
     public static Calendarist fromLunar(int year, int month, int day, int hour, int minute, int second, int millis) {
-        return fromLunar(year, month, day, hour, minute, second, millis, false, 0);
+        return fromLunar(year, month, day, hour, minute, second, millis, false);
     }
 
-    public static Calendarist fromLunar(int year, int month, int day, int hour, int minute, int second, int millis, boolean leapMonthOfCurrent, int leapMonth) {
+    public static Calendarist fromLunar(int year, int month, int day, int hour, int minute, int second, int millis, boolean itsLeapMonth) {
         validate(year, month, day, hour, minute, second, millis);
 
         Calendarist calendarist = new Calendarist();
@@ -43,11 +48,9 @@ public class Calendarist extends CalendaristBase {
         calendarist.set(MINUTE, minute);
         calendarist.set(SECOND, second);
         calendarist.set(MILLISECOND, millis);
-        calendarist.set(LEAP_MONTH_OF_CURRENT, leapMonthOfCurrent ? 1 : 0);
-        calendarist.set(LEAP_MONTH, leapMonth);
+        calendarist.itsLeapMonth(itsLeapMonth);
 
-
-        calendarist.setFrom(2);
+        calendarist.setFrom(ConvertFromType.FROM_LUNAR);
 
         return calendarist;
     }
@@ -62,7 +65,7 @@ public class Calendarist extends CalendaristBase {
      */
     public static Calendarist fromSolar(Long timeMillis) {
         if (timeMillis == null) {
-            throw new IllegalArgumentException("timemillis must not be null");
+            throw new IllegalArgumentException("the argument timemillis must not be null");
         }
 
         Calendar calendar = Calendar.getInstance();
@@ -87,6 +90,10 @@ public class Calendarist extends CalendaristBase {
      * @return {@link Calendarist}
      */
     public static Calendarist fromSolar(SolarDate solarDate) {
+        if (solarDate == null) {
+            throw new IllegalArgumentException("the argument 'solarDate' must not be null");
+        }
+
         return fromSolar(solarDate.getYear(), solarDate.getMonth(), solarDate.getDay(), solarDate.getHour(), solarDate.getMinute(), solarDate.getSecond(), solarDate.getMillis());
     }
 
@@ -107,7 +114,7 @@ public class Calendarist extends CalendaristBase {
         calendarist.set(SECOND, second);
         calendarist.set(MILLISECOND, millis);
 
-        calendarist.setFrom(1);
+        calendarist.setFrom(ConvertFromType.FROM_SOLAR);
 
         return calendarist;
     }
@@ -117,7 +124,7 @@ public class Calendarist extends CalendaristBase {
 
 
     public LunarDate toLunar() {
-        return from == 1
+        return from == ConvertFromType.FROM_SOLAR
                 ? CalendaristConvert.toLunar(toSolar().getTimestamp())
                 : new LunarDate(
                     fields[Calendarist.YEAR],
@@ -127,13 +134,12 @@ public class Calendarist extends CalendaristBase {
                     fields[Calendarist.MINUTE],
                     fields[Calendarist.SECOND],
                     fields[Calendarist.MILLISECOND],
-                fields[Calendarist.LEAP_MONTH_OF_CURRENT] == 1,
-                    fields[Calendarist.LEAP_MONTH]
+                    fields[Calendarist.LEAP_MONTH_OF_CURRENT] == 1
                 );
     }
 
     public SolarDate toSolar() {
-        return from == 1
+        return from == ConvertFromType.FROM_SOLAR
                 ? new SolarDate(
                     fields[Calendarist.YEAR],
                     fields[Calendarist.MONTH],

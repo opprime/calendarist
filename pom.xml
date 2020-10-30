@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.hothub</groupId>
     <artifactId>calendarist</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
     <name>calendarist</name>
     <url>http://hothub.org/</url>
     <description>Calendarist For JAVA</description>
 
     <properties>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <slf4j.version>1.7.13</slf4j.version>
         <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
     </properties>

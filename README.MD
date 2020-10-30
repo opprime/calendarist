@@ -11,7 +11,7 @@
 <dependency>
     <groupId>org.hothub</groupId>
     <artifactId>calendarist</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -33,7 +33,6 @@
 | SECOND                | 秒              | int     | 0 - 59       | 阳历&阴历 |
 | MILLISECOND           | 毫秒           | int     | 0 - 999      | 阳历&阴历 |
 | LEAP_MONTH_OF_CURRENT | 指定月是否是闰月 | boolean | true / false | 阴历    |
-| LEAP_MONTH            | 指定年的闰月月份 | int     | 0 - 12       | 阴历    |
 
 ## 代码示例：
 
@@ -53,7 +52,7 @@ CycleDate cycleDate = calendarist.toCycle();
 ### 阴历转阳历、干支历：
 ```
 //设置要转换的阴历日期，且需设置指定月是否是闰月及指定年的闰月月份
-Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 580, false, 4);
+Calendarist calendarist = Calendarist.fromLunar(2020, 1, 1, 12, 15, 55, 580, false);
 
 //转阴历
 LunarDate lunarDate = calendarist.toLunar();
@@ -90,10 +89,8 @@ calendarist.set(Calendarist.HOUR, 12);
 calendarist.set(Calendarist.MINUTE, 15);
 calendarist.set(Calendarist.SECOND, 55);
 calendarist.set(Calendarist.MILLISECOND, 58);
-//从阴历转换时，要指定当前月是否是闰月（0：当前月不是闰月，1：当前月是闰月），默认为0
-calendarist.set(Calendarist.LEAP_MONTH_OF_CURRENT, 1)
-//从阴历转换时，要指定本年的闰月月份，为0时表示本年无闰月，默认为0
-calendarist.set(Calendarist.LEAP_MONTH, 4);
+//从阴历转换时，要指定当前月是否是闰月
+calendarist.itsLeapMonth(true)
 
 //转阴历
 LunarDate lunarDate = calendarist.toLunar();
