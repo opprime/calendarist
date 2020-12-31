@@ -102,7 +102,7 @@ public class CalendaristConvert {
         month = iMonth;
         day = offset + 1;
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
         calendar.setTimeInMillis(timeMillis);
 
 
@@ -204,16 +204,15 @@ public class CalendaristConvert {
         long startMillis = -28800000L;
 
         //获取本月1号的时间戳
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
         calendar.set(solarDate.getYear(), solarDate.getMonth() - 1, 1, 0,0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
 
-        int cD = (int)((calendar.getTimeInMillis() - startMillis)/86400000L) + 25567 + 10 + solarDate.getDay() - 1;
+        int cD = (int)((calendar.getTimeInMillis() - startMillis) / 86400000L) + 25567 + 10 + solarDate.getDay() - 1;
 
         return new CycleDate(lunarDate.getYear() - 1864, cM, cD, solarDate.getHour(), 0, 0, 0);
     }
-
 
 
 
@@ -242,7 +241,7 @@ public class CalendaristConvert {
         long startMillis = -28800000L;
 
         //获取本月1号的时间戳
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
         calendar.set(solarDate.getYear(), solarDate.getMonth() - 1, 1, 0,0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 

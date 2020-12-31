@@ -6,6 +6,7 @@ import org.hothub.calendarist.core.convert.CalendaristConvert;
 import org.hothub.calendarist.pojo.CycleDate;
 import org.hothub.calendarist.pojo.LunarDate;
 import org.hothub.calendarist.pojo.SolarDate;
+import org.hothub.calendarist.utils.CalendaristUtils;
 
 import java.util.Calendar;
 
@@ -68,7 +69,7 @@ public class Calendarist extends CalendaristBase {
             throw new IllegalArgumentException("the argument timemillis must not be null");
         }
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
 
         calendar.setTimeInMillis(timeMillis);
 

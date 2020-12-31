@@ -9,6 +9,15 @@ import java.util.Date;
 public class CalendaristUtils {
 
 
+    /**
+     * 获取JAVA日期处理实例
+     *
+     * @return Calendar
+     */
+    public static Calendar getCalendarInstance() {
+        return Calendar.getInstance(CalendaristConstants.DEFAULT_TIME_ZONE);
+    }
+
 
     /**
      * 干支日期中的年月日转化为干支
@@ -169,7 +178,7 @@ public class CalendaristUtils {
         long times = 31556925974L * (solarYear - 1900) + CalendaristConstants.SOLAR_TERM_INFO[(solarMonth - 1) * 2] * 60000L + ((long) 0.7 * (solarYear - 1900));
         Date offDate = new Date(times - 2208549300000L);
         // 1、取得本地时间：
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = CalendaristUtils.getCalendarInstance();
         cal.setTime(offDate);
         // 2、取得时间偏移量：
         int zoneOffset = cal.get(Calendar.ZONE_OFFSET);

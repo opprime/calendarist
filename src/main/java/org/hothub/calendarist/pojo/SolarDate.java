@@ -1,15 +1,18 @@
 package org.hothub.calendarist.pojo;
 
+import org.hothub.calendarist.utils.CalendaristUtils;
+
 import java.time.DayOfWeek;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * 阳历日期
  */
 public class SolarDate extends CalendaristDate {
 
-    //星期
+    /**
+     * 星期
+     */
     private DayOfWeek dayOfWeek;
 
 
@@ -23,7 +26,7 @@ public class SolarDate extends CalendaristDate {
     public SolarDate(int year, int month, int day, int hour, int minute, int second, int millis) {
         super(year, month, day, hour, minute, second, millis);
 
-        Calendar calendar = Calendar.getInstance(Locale.CHINA);
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
         calendar.set(year, month - 1, day, hour, minute, second);
         calendar.set(Calendar.MILLISECOND, millis);
 

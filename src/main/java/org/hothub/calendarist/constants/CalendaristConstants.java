@@ -1,9 +1,18 @@
 package org.hothub.calendarist.constants;
 
+import java.util.TimeZone;
+
 public class CalendaristConstants {
 
 
-    //农历起始时间戳 （1900年1月31）
+    /**
+     * 默认时区
+     */
+    public final static TimeZone DEFAULT_TIME_ZONE = TimeZone.getTimeZone("GMT+8");
+
+    /**
+     * 农历起始时间戳 （1900年1月31）
+     */
     public final static long LUNAR_INIT_TIMESTAMP = -2206425943000L;
 
     /**
