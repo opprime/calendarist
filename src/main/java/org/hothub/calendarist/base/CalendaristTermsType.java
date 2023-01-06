@@ -38,9 +38,9 @@ public enum CalendaristTermsType {
 
 
 
-    private Integer typeId;
+    private final Integer typeId;
 
-    private String typeName;
+    private final String typeName;
 
 
     CalendaristTermsType(Integer typeId, String typeName) {
