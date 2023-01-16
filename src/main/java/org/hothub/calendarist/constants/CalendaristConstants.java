@@ -250,7 +250,7 @@ public class CalendaristConstants {
     /**
      * 阳历每月1号时一年中已过去的天数
      */
-    private static final int[] DAYS_BEFORE_MONTH = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+    private static final int[] DAYS_BEFORE_MONTH = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
 
     /**
      * 天干
@@ -268,6 +268,11 @@ public class CalendaristConstants {
     public final static String[] ZODIAC_INFO = { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
 
     /**
+     * 农历日期，月份的表达方式
+     */
+    public final static String[] LUNAR_MONTH_INFO = { "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊" };
+
+    /**
      * 24节气
      */
     public final static long[] SOLAR_TERM_INFO = new long[] {
@@ -275,6 +280,11 @@ public class CalendaristConstants {
             173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033,
             353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758
     };
+
+    /**
+     * 中文数字
+     */
+    public final static String[] NUMBER_ZH_INFO = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
 
 }

@@ -7,6 +7,15 @@ import org.hothub.calendarist.utils.CalendaristUtils;
  */
 public class LunarDate extends CalendaristDate {
 
+    //年，中文
+    private String yearZh;
+
+    //月，中文
+    private String monthZh;
+
+    //日，中文
+    private String dayZh;
+
     //该年的闰月月份
     private int leapMonth;
 
@@ -33,6 +42,11 @@ public class LunarDate extends CalendaristDate {
 
         //如果设置了当前月是闰月，则要验证真实性
         this.itsLeapMonth = itsLeapMonth && this.leapMonth != 0 && this.leapMonth == month;
+
+        //年月日，中文
+        this.yearZh = CalendaristUtils.getYearZh(year);
+        this.monthZh = CalendaristUtils.getMonthZh(month);
+        this.dayZh = CalendaristUtils.getDayZh(day);
     }
 
 
@@ -52,6 +66,29 @@ public class LunarDate extends CalendaristDate {
         this.itsLeapMonth = itsLeapMonth;
     }
 
+    public String getYearZh() {
+        return yearZh;
+    }
+
+    public void setYearZh(String yearZh) {
+        this.yearZh = yearZh;
+    }
+
+    public String getMonthZh() {
+        return monthZh;
+    }
+
+    public void setMonthZh(String monthZh) {
+        this.monthZh = monthZh;
+    }
+
+    public String getDayZh() {
+        return dayZh;
+    }
+
+    public void setDayZh(String dayZh) {
+        this.dayZh = dayZh;
+    }
 
 
     @Override
@@ -65,7 +102,9 @@ public class LunarDate extends CalendaristDate {
         sb.append(", second=").append(second);
         sb.append(", millis=").append(millis);
         sb.append(", timestamp=").append(timestamp);
-        sb.append(", itsLeapMonth=").append(itsLeapMonth);
+        sb.append(", yearZh=").append(yearZh);
+        sb.append(", monthZh=").append(monthZh);
+        sb.append(", dayZh=").append(dayZh);
         sb.append(", leapMonth=").append(leapMonth);
         sb.append('}');
         return sb.toString();

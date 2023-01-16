@@ -41,6 +41,78 @@ public class CalendaristUtils {
     }
 
 
+    /**
+     * 年份，中文
+     *
+     * @param year 年份
+     * @return String
+     */
+    public static String getYearZh(int year) {
+        if (year <= 0) {
+            return "";
+        }
+
+        char[] years = String.valueOf(year).toCharArray();
+
+        int length = years.length;
+        if (length == 0) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        for (char value : years) {
+            result.append(CalendaristConstants.NUMBER_ZH_INFO[(int) value - 48]);
+        }
+
+        return result.toString();
+    }
+
+
+    /**
+     * 月份，中文
+     *
+     * @param month 月份
+     * @return String
+     */
+    public static String getMonthZh(int month) {
+        if (month <= 0 || month > 12) {
+            return "";
+        }
+
+        return CalendaristConstants.LUNAR_MONTH_INFO[month - 1];
+    }
+
+
+    /**
+     * 日，中文
+     *
+     * @param day 日
+     * @return String
+     */
+    public static String getDayZh(int day) {
+        if (day <= 0 || day > 31) {
+            return "";
+        }
+
+        int lastNumber = day % 10;
+
+        String dayZh = lastNumber == 0 ? "十" : CalendaristConstants.NUMBER_ZH_INFO[lastNumber];
+
+        if (day <= 10) {
+            dayZh = "初" + dayZh;
+        } else if (day < 20) {
+            dayZh = "十" + dayZh;
+        } else if (day < 30) {
+            dayZh = "廿" + (lastNumber == 0 ? "" : dayZh);
+        } else {
+            dayZh = "卅" + (lastNumber == 0 ? "" : dayZh);
+        }
+
+        return dayZh;
+    }
+
+
 
     /**
      * 干支日期中的小时转为干支时
@@ -140,7 +212,7 @@ public class CalendaristUtils {
     public static long solarToInt(int y, int m, int d) {
         m = (m + 9) % 12;
         y = y - m / 10;
-        return 365 * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1);
+        return 365L * y + y / 4 - y / 100 + y / 400 + (m * 306 + 5) / 10 + (d - 1);
     }
 
     public static SolarDate solarFromInt(long g) {
@@ -250,5 +322,6 @@ public class CalendaristUtils {
     public static int leapMonth(int lunarYear) {
         return CalendaristConstants.LUNAR_CODE[lunarYear - CalendaristConstants.MIN_YEAR] & 0xf;
     }
+
 
 }
