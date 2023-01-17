@@ -1,6 +1,5 @@
 package org.hothub.calendarist.core;
 
-
 import org.hothub.calendarist.base.ConvertFromType;
 
 public abstract class CalendaristBase {
@@ -68,10 +67,10 @@ public abstract class CalendaristBase {
     /**
      * 由阴历转换时，设置要转换的月份是否是闰月
      *
-     * @param itsLeapMonth 是否是闰月
+     * @param isLeap 是否是闰月
      */
-    public void itsLeapMonth(boolean itsLeapMonth) {
-        fields[LEAP_MONTH_OF_CURRENT] = itsLeapMonth ? 1 : 0;
+    public void setLeap(boolean isLeap) {
+        fields[LEAP_MONTH_OF_CURRENT] = isLeap ? 1 : 0;
     }
 
 

@@ -26,7 +26,7 @@ public class Calendarist extends CalendaristBase {
             throw new IllegalArgumentException("the argument 'lunarDate' must not be null");
         }
 
-        return fromLunar(lunarDate.getYear(), lunarDate.getMonth(), lunarDate.getDay(), lunarDate.getHour(), lunarDate.getMinute(), lunarDate.getSecond(), lunarDate.getMillis(), lunarDate.isItsLeapMonth());
+        return fromLunar(lunarDate.getYear(), lunarDate.getMonth(), lunarDate.getDay(), lunarDate.getHour(), lunarDate.getMinute(), lunarDate.getSecond(), lunarDate.getMillis(), lunarDate.isLeap());
     }
 
     public static Calendarist fromLunar(int year, int month, int day) {
@@ -37,7 +37,7 @@ public class Calendarist extends CalendaristBase {
         return fromLunar(year, month, day, hour, minute, second, millis, false);
     }
 
-    public static Calendarist fromLunar(int year, int month, int day, int hour, int minute, int second, int millis, boolean itsLeapMonth) {
+    public static Calendarist fromLunar(int year, int month, int day, int hour, int minute, int second, int millis, boolean isLeap) {
         validate(year, month, day, hour, minute, second, millis);
 
         Calendarist calendarist = new Calendarist();
@@ -49,7 +49,8 @@ public class Calendarist extends CalendaristBase {
         calendarist.set(MINUTE, minute);
         calendarist.set(SECOND, second);
         calendarist.set(MILLISECOND, millis);
-        calendarist.itsLeapMonth(itsLeapMonth);
+
+        calendarist.setLeap(isLeap);
 
         calendarist.setFrom(ConvertFromType.FROM_LUNAR);
 

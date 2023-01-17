@@ -20,7 +20,11 @@ public class LunarDate extends CalendaristDate {
     private int leapMonth;
 
     //当前月是否是闰月
+    @Deprecated
     private boolean itsLeapMonth;
+
+    //当前月是否是闰月
+    private boolean leap;
 
 
     public LunarDate() {
@@ -34,14 +38,15 @@ public class LunarDate extends CalendaristDate {
         this(year, month, day, hour, minute, second, millis, false);
     }
 
-    public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis, boolean itsLeapMonth) {
+    public LunarDate(int year, int month, int day, int hour, int minute, int second, int millis, boolean isLeap) {
         super(year, month, day, hour, minute, second, millis);
 
         //获取该年真实的闰月月份
         this.leapMonth = CalendaristUtils.leapMonth(year);
 
         //如果设置了当前月是闰月，则要验证真实性
-        this.itsLeapMonth = itsLeapMonth && this.leapMonth != 0 && this.leapMonth == month;
+        this.itsLeapMonth = isLeap && this.leapMonth != 0 && this.leapMonth == month;
+        this.leap = this.itsLeapMonth;
 
         //年月日，中文
         this.yearZh = CalendaristUtils.getYearZh(year);
@@ -58,10 +63,17 @@ public class LunarDate extends CalendaristDate {
         this.leapMonth = leapMonth;
     }
 
+    /**
+     * 已废弃，请使用isLeap()方法替代。
+     *
+     * @return boolean
+     */
+    @Deprecated
     public boolean isItsLeapMonth() {
         return itsLeapMonth;
     }
 
+    @Deprecated
     public void setItsLeapMonth(boolean itsLeapMonth) {
         this.itsLeapMonth = itsLeapMonth;
     }
@@ -90,6 +102,14 @@ public class LunarDate extends CalendaristDate {
         this.dayZh = dayZh;
     }
 
+    public boolean isLeap() {
+        return leap;
+    }
+
+    public void setLeap(boolean leap) {
+        this.leap = leap;
+    }
+
 
     @Override
     public String toString() {
@@ -106,6 +126,7 @@ public class LunarDate extends CalendaristDate {
         sb.append(", monthZh=").append(monthZh);
         sb.append(", dayZh=").append(dayZh);
         sb.append(", leapMonth=").append(leapMonth);
+        sb.append(", leap=").append(leap);
         sb.append('}');
         return sb.toString();
     }

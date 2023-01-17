@@ -136,7 +136,7 @@ public class CalendaristConvert {
         int offset = 0;
         int loopend = leap;
 
-        if (!lunarDate.isItsLeapMonth()) {
+        if (!lunarDate.isLeap()) {
             if (lunarDate.getMonth() <= leap || leap == 0) {
                 loopend = lunarDate.getMonth() - 1;
             } else {
