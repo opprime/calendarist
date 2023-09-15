@@ -28,3 +28,4 @@ release.properties
 pom.xml.releaseBackup
 
 /src/test/java/org/hothub/test/*
+/src/test/java/org/hothub/calendarist/test/*

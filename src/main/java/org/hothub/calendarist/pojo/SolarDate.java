@@ -1,5 +1,8 @@
 package org.hothub.calendarist.pojo;
 
+import org.hothub.calendarist.base.TermType;
+import org.hothub.calendarist.constants.CalendaristConstants;
+import org.hothub.calendarist.core.feature.ISolarTermFeature;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 import java.time.DayOfWeek;
@@ -8,7 +11,7 @@ import java.util.Calendar;
 /**
  * 阳历日期
  */
-public class SolarDate extends CalendaristDate {
+public class SolarDate extends CalendaristDate implements ISolarTermFeature {
 
     /**
      * 星期
@@ -36,71 +39,29 @@ public class SolarDate extends CalendaristDate {
         this.dayOfWeek = DayOfWeek.of(dayOfWeek == 1 ? 7 : dayOfWeek - 1);
     }
 
+    /**
+     * 获取该日期对应的节气，无则返回null
+     *
+     * @return {@link TermType}
+     */
+    @Override
+    public TermType getTerm() {
+        //每个月肯定只有两个节气，且两个节气必定在15号之前和之后
+        //所以，离某日期最近的节气的下标如下
+        int termIndex = (this.month * 2) - (this.day > 15 ? 1 : 2);
+        if (termIndex < 0 || termIndex > 23) {
+            return null;
+        }
 
+        long millis = ((long) (31556925974.7 * (this.year - 1900))) + (CalendaristConstants.SOLAR_TERM_INFO[termIndex] * 60000L);
 
-    public int getYear() {
-        return year;
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
+        calendar.setTimeInMillis(millis + CalendaristConstants.SOLAR_TERM_BASE_TIMESTAMP);
+
+        return calendar.get(Calendar.DAY_OF_MONTH) == this.day ? TermType.getType(termIndex) : null;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
 
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public int getMinute() {
-        return minute;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    public int getSecond() {
-        return second;
-    }
-
-    public void setSecond(int second) {
-        this.second = second;
-    }
-
-    public int getMillis() {
-        return millis;
-    }
-
-    public void setMillis(int millis) {
-        this.millis = millis;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;

@@ -4,7 +4,6 @@ import org.hothub.calendarist.constants.CalendaristConstants;
 import org.hothub.calendarist.pojo.SolarDate;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class CalendaristUtils {
 
@@ -240,26 +239,19 @@ public class CalendaristUtils {
 
 
     /**
-     * 正确的立春时间应该是以小时来进行计算的
+     * 获取某年、某月，第一个节在哪一天
      *
      * @param solarYear 阳历年份
      * @param solarMonth 阳历月份
      * @return int
      */
     public static int getFirstTerm(int solarYear, int solarMonth) {
-        long times = 31556925974L * (solarYear - 1900) + CalendaristConstants.SOLAR_TERM_INFO[(solarMonth - 1) * 2] * 60000L + ((long) 0.7 * (solarYear - 1900));
-        Date offDate = new Date(times - 2208549300000L);
-        // 1、取得本地时间：
+        long times = ((long) (31556925974.7 * (solarYear - 1900))) + (CalendaristConstants.SOLAR_TERM_INFO[(solarMonth - 1) * 2] * 60000L);
+
         Calendar cal = CalendaristUtils.getCalendarInstance();
-        cal.setTime(offDate);
-        // 2、取得时间偏移量：
-        int zoneOffset = cal.get(Calendar.ZONE_OFFSET);
-        // 3、取得夏令时差：
-        int dstOffset = cal.get(Calendar.DST_OFFSET);
-        // 4、从本地时间里扣除这些差量，即可以取得UTC时间：
-        cal.add(Calendar.MILLISECOND, -(zoneOffset + dstOffset));
-        // 之后调用cal.get(int x)或cal.getTimeInMillis()方法所取得的时间即是UTC标准时间。
-        return (cal.get(Calendar.DATE));
+        cal.setTimeInMillis(times + CalendaristConstants.SOLAR_TERM_BASE_TIMESTAMP);
+
+        return cal.get(Calendar.DATE);
     }
 
 

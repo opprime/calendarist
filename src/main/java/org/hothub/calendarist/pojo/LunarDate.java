@@ -1,11 +1,14 @@
 package org.hothub.calendarist.pojo;
 
+import org.hothub.calendarist.base.TermType;
+import org.hothub.calendarist.core.convert.CalendaristConvert;
+import org.hothub.calendarist.core.feature.ISolarTermFeature;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 /**
  * 阴历日期
  */
-public class LunarDate extends CalendaristDate {
+public class LunarDate extends CalendaristDate implements ISolarTermFeature {
 
     //年，中文
     private String yearZh;
@@ -53,6 +56,20 @@ public class LunarDate extends CalendaristDate {
         this.monthZh = CalendaristUtils.getMonthZh(month);
         this.dayZh = CalendaristUtils.getDayZh(day);
     }
+
+    /**
+     * 获取该日期对应的节气，无则返回null
+     *
+     * @return {@link TermType}
+     */
+    @Override
+    public TermType getTerm() {
+        //先转阳历
+        SolarDate solarDate = CalendaristConvert.toSolar(this);
+
+        return solarDate.getTerm();
+    }
+
 
 
     public int getLeapMonth() {
@@ -130,4 +147,6 @@ public class LunarDate extends CalendaristDate {
         sb.append('}');
         return sb.toString();
     }
+
+
 }
