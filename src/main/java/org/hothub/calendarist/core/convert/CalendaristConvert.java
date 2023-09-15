@@ -9,20 +9,13 @@ import org.hothub.calendarist.utils.CalendaristUtils;
 import java.util.Calendar;
 
 /**
- * 转换工具类
- *
  * 参考：
  * https://blog.csdn.net/FengRenYuanDeFZ/article/details/100162807
- *
  * https://zhuanlan.zhihu.com/p/57261062
  * https://github.com/CutePandaSh/zhdate/blob/master/zhdate/__init__.py
- *
  * https://github.com/isee15/Lunar-Solar-Calendar-Converter/blob/master/Java/cn/z/LunarSolarConverter.java
- *
  * https://blog.csdn.net/qq784515681/article/details/80861706#commentsedit
- *
  * https://www.cnblogs.com/doubleWin/p/10690127.html
- *
  */
 public class CalendaristConvert {
 
@@ -209,7 +202,6 @@ public class CalendaristConvert {
         calendar.set(solarDate.getYear(), solarDate.getMonth() - 1, 1, 0,0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-
         int cD = (int)((calendar.getTimeInMillis() - startMillis) / 86400000L) + 25567 + 10 + solarDate.getDay() - 1;
 
         return new CycleDate(lunarDate.getYear() - 1864, cM, cD, solarDate.getHour(), 0, 0, 0);
@@ -229,7 +221,7 @@ public class CalendaristConvert {
         }
 
         // 月柱 1900年1月小寒以前为 丙子月(60进制12)
-        // 返回当月「节」为几日开始
+        // 返回当月「第一个节气」为哪一天
         int firstNode = CalendaristUtils.getFirstTerm(solarDate.getYear(), solarDate.getMonth());
         int cM = (solarDate.getYear() - 1900) * 12 + (solarDate.getMonth() - 1) + 12;
 
@@ -246,9 +238,7 @@ public class CalendaristConvert {
         calendar.set(solarDate.getYear(), solarDate.getMonth() - 1, 1, 0,0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-
-        int cD = (int)((solarDate.getTimestamp() - startMillis)/86400000L) + 25567 + 10 + solarDate.getDay() - 1;
-
+        int cD = (int)((solarDate.getTimestamp() - startMillis) / 86400000L) + 25567 + 10 + solarDate.getDay() - 1;
 
         //阴历日期
         LunarDate lunarDate = toLunar(solarDate.getTimestamp());

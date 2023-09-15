@@ -289,7 +289,7 @@ public class CalendaristUtils {
 
     /**
      * 农历某年闰哪个月
-     * 1-12 , 没闰返回0
+     * 1-12, 无闰月返回0
      *
      * @param lunarYear 农历年份
      * @return int
@@ -339,7 +339,7 @@ public class CalendaristUtils {
      * @param termType 节气 {@link TermType}
      * @return Long 毫秒时间戳
      */
-    public static Long getTimeByTerm(int solarYear, TermType termType) {
+    public static Long getTermTime(int solarYear, TermType termType) {
         if (solarYear < 1900 || solarYear > 2100) {
             throw new IllegalArgumentException("the argument 'solarYear' must between 1900 and 2100");
         }
