@@ -53,12 +53,22 @@ public class SolarDate extends CalendaristDate implements ISolarTermFeature {
             return null;
         }
 
-        long millis = ((long) (31556925974.7 * (this.year - 1900))) + (CalendaristConstants.SOLAR_TERM_INFO[termIndex] * 60000L);
+        double ratio = (this.year <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
 
-        Calendar calendar = CalendaristUtils.getCalendarInstance();
-        calendar.setTimeInMillis(millis + CalendaristConstants.SOLAR_TERM_BASE_TIMESTAMP);
+        //年，取后两位
+        int year = this.year % 100;
+        int L = year / 4;
+        if (this.year % 4 == 0 && this.year % 100 != 0 || this.year % 400 == 0) {
+            // 注意：凡闰年3月1日前闰年数要减一，即：L=[(Y-1)/4],因为小寒、大寒、立春、雨水这两个节气都小于3月1日
+            if (ratio == 5.4055 || ratio == 3.87) {
+                L = (year - 1) / 4;
+            }
+        }
 
-        return calendar.get(Calendar.DAY_OF_MONTH) == this.day ? TermType.getType(termIndex) : null;
+        //寿星通用公式  num =[Y * D + C] - L
+        int num1 = (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO + ratio) - L);
+
+        return num1 == this.day ? TermType.getType(termIndex) : null;
     }
 
 

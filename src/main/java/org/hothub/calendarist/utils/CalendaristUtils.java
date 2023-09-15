@@ -1,5 +1,6 @@
 package org.hothub.calendarist.utils;
 
+import org.hothub.calendarist.base.TermType;
 import org.hothub.calendarist.constants.CalendaristConstants;
 import org.hothub.calendarist.pojo.SolarDate;
 
@@ -231,28 +232,10 @@ public class CalendaristUtils {
 
 
 
-
     public static int getBitInt(int data, int length, int shift) {
         return (data & (((1 << length) - 1) << shift)) >> shift;
     }
 
-
-
-    /**
-     * 获取某年、某月，第一个节在哪一天
-     *
-     * @param solarYear 阳历年份
-     * @param solarMonth 阳历月份
-     * @return int
-     */
-    public static int getFirstTerm(int solarYear, int solarMonth) {
-        long times = ((long) (31556925974.7 * (solarYear - 1900))) + (CalendaristConstants.SOLAR_TERM_INFO[(solarMonth - 1) * 2] * 60000L);
-
-        Calendar cal = CalendaristUtils.getCalendarInstance();
-        cal.setTimeInMillis(times + CalendaristConstants.SOLAR_TERM_BASE_TIMESTAMP);
-
-        return cal.get(Calendar.DATE);
-    }
 
 
 
@@ -315,5 +298,81 @@ public class CalendaristUtils {
         return CalendaristConstants.LUNAR_CODE[lunarYear - CalendaristConstants.MIN_YEAR] & 0xf;
     }
 
+
+
+    /**
+     * 获取某年、某月，第一个节气在哪一天
+     *
+     * @param solarYear 阳历年份
+     * @param solarMonth 阳历月份
+     * @return int
+     */
+    public static int getFirstTerm(int solarYear, int solarMonth) {
+        if (solarYear < 1900 || solarYear > 2100) {
+            throw new IllegalArgumentException("the argument 'solarYear' must between 1900 and 2100");
+        }
+
+        if (solarMonth < 1 || solarMonth > 12) {
+            throw new IllegalArgumentException("the argument 'solarMonth' must between 1 and 12");
+        }
+
+        //该月第一个节气对应下标
+        int termIndex = (solarMonth - 1) * 2;
+
+        double ratio = (solarYear <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
+
+        //年份，只取后两位
+        int year = solarYear % 100;
+
+        //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
+        //寿星通用公式  num =[Y * D + C] - L
+        //通过此公式，得到天
+        return (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO) + ratio - ((double) (year - 1) / 4));
+    }
+
+
+
+    /**
+     * 根据阳历年份和节气，反查该节气对应的阳历日期
+     *
+     * @param solarYear 阳历年份
+     * @param termType 节气 {@link TermType}
+     * @return Long 毫秒时间戳
+     */
+    public static Long getTimeByTerm(int solarYear, TermType termType) {
+        if (solarYear < 1900 || solarYear > 2100) {
+            throw new IllegalArgumentException("the argument 'solarYear' must between 1900 and 2100");
+        }
+
+        if (termType == null) {
+            throw new IllegalArgumentException("the argument 'termType' must not be null");
+        }
+
+        //此节气是一年中第几个节气。值为：0-23
+        int termIndex = termType.ordinal();
+
+        double ratio = (solarYear <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
+
+        //年份，只取后两位
+        int year = solarYear % 100;
+
+        //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
+        //寿星通用公式  num =[Y * D + C] - L
+        //通过此公式，得到天
+        int day = (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO) + ratio - ((double) (year - 1) / 4));
+
+        Calendar calendar = CalendaristUtils.getCalendarInstance();
+        calendar.set(Calendar.YEAR, solarYear);
+        calendar.set(Calendar.MONTH, termIndex / 2);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        //取当天0时0分0秒的时间戳
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar.getTimeInMillis();
+    }
 
 }

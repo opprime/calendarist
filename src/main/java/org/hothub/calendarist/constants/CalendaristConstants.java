@@ -260,11 +260,28 @@ public class CalendaristConstants {
     };
 
     /**
-     * 1900年01月06日02时05分00秒
+     * 1900年01月06日00时32分05秒
      * 1900年，第一个节气(小寒)时间戳。
      */
-    public final static long SOLAR_TERM_BASE_TIMESTAMP = -2208578443000L;
+    public final static long SOLAR_TERM_BASE_TIMESTAMP = -2208584017802L;
 
+
+    public final static double SOLAR_TERM_RATIO = 0.2422;
+
+    // 定义数组，存储的是20世纪和21世纪的节气C值
+    public final static double[] SOLAR_TERM_INFO_20TH = {
+            6.11, 20.84, 4.6295, 19.4599, 6.3826, 21.4155,
+            5.59, 20.888, 6.318, 21.86, 6.5, 22.2,
+            7.928, 23.65, 8.35, 23.95, 8.44, 23.822,
+            9.098, 24.218, 8.218, 23.08, 7.9, 22.6
+    };
+
+    public final static double[] SOLAR_TERM_INFO_21TH = {
+            5.4055, 20.12, 3.87, 18.73, 5.63, 20.646,
+            4.81, 20.1, 5.52, 21.04, 5.678, 21.37,
+            7.108, 22.83, 7.5, 23.13, 7.646, 23.042,
+            8.318, 23.438, 7.438, 22.36, 7.18, 21.94
+    };
 
 
 

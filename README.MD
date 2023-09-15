@@ -21,6 +21,7 @@
 3. 支持阴历日期转阳历日期
 4. 支持阳历日期转干支日期
 5. 支持阴历日期转干支日期
+6. 支持获取某日期对应节气 @since 1.0.10
 
 ## 参数/字段说明
 | 字段                | 说明           | 类型  | 取值范围 | 适用    |
@@ -102,4 +103,16 @@ LunarDate lunarDate = calendarist.toLunar();
 SolarDate solarDate = calendarist.toSolar();
 //转干支历
 CycleDate cycleDate = calendarist.toCycle();
+```
+
+### 获取节气（@since 1.0.10）
+```
+//用法一：直接创建阳历、阴历日期实体对象
+SolarDate solarDate = new SolarDate(2023, 1, 5);
+TermType term1 = solarDate.getTerm();
+
+//用法二：阳历、阴历日期互相转换后，直接使用
+Calendarist calendarist = Calendarist.fromSolar(2023, 1, 5);
+LunarDate lunarDate = calendarist.toLunar();
+TermType term2 = lunarDate.getTerm();
 ```

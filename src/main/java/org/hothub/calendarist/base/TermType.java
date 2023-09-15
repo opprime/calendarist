@@ -2,8 +2,12 @@ package org.hothub.calendarist.base;
 
 /**
  * 24节气
+ * 每个自然年第一个节气是小寒，所以下标从小寒开始算
  */
 public enum TermType {
+
+    XIAOHAN(23, "小寒"),
+    DAHAN(24, "大寒"),
 
     LICHUN(1, "立春"),
     YUSHUI(2, "雨水"),
@@ -31,9 +35,8 @@ public enum TermType {
     XIAOXUE(20, "小雪"),
 
     DAXUE(21, "大雪"),
-    DONGZHI(22, "冬至"),
-    XIAOHAN(23, "小寒"),
-    DAHAN(24, "大寒")
+    DONGZHI(22, "冬至")
+
 
     ;
 
@@ -70,10 +73,8 @@ public enum TermType {
             return null;
         }
 
-        int termId = termIndex + 23 - (termIndex <= 1 ? 0 : 24);
-
         for (TermType item : values()) {
-            if (item.termId.equals(termId)) {
+            if (item.ordinal() == termIndex) {
                 return item;
             }
         }
