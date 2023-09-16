@@ -301,6 +301,41 @@ public class CalendaristUtils {
 
 
     /**
+     * 获取某节气，在某一阳历年，某月份的哪一天
+     *
+     * @param solarYear 阳历年
+     * @param termType 节气
+     * @return int
+     */
+    public static int getTermDay(int solarYear, TermType termType) {
+        if (solarYear < 1900 || solarYear > 2100) {
+            throw new IllegalArgumentException("the argument 'solarYear' must between 1900 and 2100");
+        }
+
+        if (termType == null) {
+            throw new IllegalArgumentException("the argument 'termType' must not be null");
+        }
+
+        double ratio = (solarYear <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termType.ordinal()];
+
+        //年，取后两位
+        int year = solarYear % 100;
+
+        //先判断是否是润年
+        boolean isLeapYear = (solarYear % 4 == 0 && solarYear % 100 != 0) || solarYear % 400 == 0;
+
+        //闰年数
+        //凡闰年，3月1日前的节气，闰年数要减一，即：L=(Y-1)/4，因为小寒、大寒、立春、雨水这四个节气都在3月1日这前
+        int leapCount = isLeapYear && termType.ordinal() <= 3 ? (year - 1) / 4 : year /4;
+
+        //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
+        //寿星通用公式  num =[Y * D + C] - L
+        return (int) (year * CalendaristConstants.SOLAR_TERM_RATIO + ratio - leapCount);
+    }
+
+
+
+    /**
      * 获取某年、某月，第一个节气在哪一天
      *
      * @param solarYear 阳历年份
@@ -319,15 +354,7 @@ public class CalendaristUtils {
         //该月第一个节气对应下标
         int termIndex = (solarMonth - 1) * 2;
 
-        double ratio = (solarYear <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
-
-        //年份，只取后两位
-        int year = solarYear % 100;
-
-        //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
-        //寿星通用公式  num =[Y * D + C] - L
-        //通过此公式，得到天
-        return (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO) + ratio - ((double) (year - 1) / 4));
+        return getTermDay(solarYear, TermType.getType(termIndex));
     }
 
 
@@ -348,22 +375,11 @@ public class CalendaristUtils {
             throw new IllegalArgumentException("the argument 'termType' must not be null");
         }
 
-        //此节气是一年中第几个节气。值为：0-23
-        int termIndex = termType.ordinal();
-
-        double ratio = (solarYear <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
-
-        //年份，只取后两位
-        int year = solarYear % 100;
-
-        //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
-        //寿星通用公式  num =[Y * D + C] - L
-        //通过此公式，得到天
-        int day = (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO) + ratio - ((double) (year - 1) / 4));
+        int day = getTermDay(solarYear, termType);
 
         Calendar calendar = CalendaristUtils.getCalendarInstance();
         calendar.set(Calendar.YEAR, solarYear);
-        calendar.set(Calendar.MONTH, termIndex / 2);
+        calendar.set(Calendar.MONTH, termType.ordinal() / 2);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
         //取当天0时0分0秒的时间戳

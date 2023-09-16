@@ -1,7 +1,6 @@
 package org.hothub.calendarist.pojo;
 
 import org.hothub.calendarist.base.TermType;
-import org.hothub.calendarist.constants.CalendaristConstants;
 import org.hothub.calendarist.core.feature.ISolarTermFeature;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
@@ -46,29 +45,22 @@ public class SolarDate extends CalendaristDate implements ISolarTermFeature {
      */
     @Override
     public TermType getTerm() {
+        if (this.year < 1900 || this.year > 2100) {
+            throw new IllegalArgumentException("the property 'year' must between 1900 and 2100");
+        }
+
+        if (this.month < 1 || this.month > 12) {
+            throw new IllegalArgumentException("the property 'month' must between 1 and 12");
+        }
+
         //每个月肯定只有两个节气，且两个节气必定在15号之前和之后
         //所以，离某日期最近的节气的下标如下
         int termIndex = (this.month * 2) - (this.day > 15 ? 1 : 2);
-        if (termIndex < 0 || termIndex > 23) {
-            return null;
-        }
 
-        double ratio = (this.year <= 2000 ? CalendaristConstants.SOLAR_TERM_INFO_20TH : CalendaristConstants.SOLAR_TERM_INFO_21TH)[termIndex];
+        //该节气在具体哪一天
+        int termDay = CalendaristUtils.getTermDay(this.year, TermType.getType(termIndex));
 
-        //年，取后两位
-        int year = this.year % 100;
-        int L = year / 4;
-        if (this.year % 4 == 0 && this.year % 100 != 0 || this.year % 400 == 0) {
-            // 注意：凡闰年3月1日前闰年数要减一，即：L=[(Y-1)/4],因为小寒、大寒、立春、雨水这两个节气都小于3月1日
-            if (ratio == 5.4055 || ratio == 3.87) {
-                L = (year - 1) / 4;
-            }
-        }
-
-        //寿星通用公式  num =[Y * D + C] - L
-        int num1 = (int) ((year * CalendaristConstants.SOLAR_TERM_RATIO + ratio) - L);
-
-        return num1 == this.day ? TermType.getType(termIndex) : null;
+        return termDay == this.day ? TermType.getType(termIndex) : null;
     }
 
 
