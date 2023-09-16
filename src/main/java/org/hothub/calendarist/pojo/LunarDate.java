@@ -23,10 +23,6 @@ public class LunarDate extends CalendaristDate implements ISolarTermFeature {
     private int leapMonth;
 
     //当前月是否是闰月
-    @Deprecated
-    private boolean itsLeapMonth;
-
-    //当前月是否是闰月
     private boolean leap;
 
 
@@ -48,8 +44,7 @@ public class LunarDate extends CalendaristDate implements ISolarTermFeature {
         this.leapMonth = CalendaristUtils.leapMonth(year);
 
         //如果设置了当前月是闰月，则要验证真实性
-        this.itsLeapMonth = isLeap && this.leapMonth != 0 && this.leapMonth == month;
-        this.leap = this.itsLeapMonth;
+        this.leap = isLeap && this.leapMonth != 0 && this.leapMonth == month;
 
         //年月日，中文
         this.yearZh = CalendaristUtils.getYearZh(year);
@@ -87,12 +82,12 @@ public class LunarDate extends CalendaristDate implements ISolarTermFeature {
      */
     @Deprecated
     public boolean isItsLeapMonth() {
-        return itsLeapMonth;
+        return leap;
     }
 
     @Deprecated
     public void setItsLeapMonth(boolean itsLeapMonth) {
-        this.itsLeapMonth = itsLeapMonth;
+        this.leap = itsLeapMonth;
     }
 
     public String getYearZh() {

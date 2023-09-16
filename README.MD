@@ -116,3 +116,8 @@ Calendarist calendarist = Calendarist.fromSolar(2023, 1, 5);
 LunarDate lunarDate = calendarist.toLunar();
 TermType term2 = lunarDate.getTerm();
 ```
+
+### 根据阳历年份和指定节气反查日期（@since 1.0.10）
+```
+Long timeMillis = CalendaristUtils.getTermTime(2023, TermType.XIAOHAN);
+```

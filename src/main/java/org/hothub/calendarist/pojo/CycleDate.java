@@ -1,6 +1,5 @@
 package org.hothub.calendarist.pojo;
 
-
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 /**

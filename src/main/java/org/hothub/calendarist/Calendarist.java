@@ -10,10 +10,7 @@ import org.hothub.calendarist.utils.CalendaristUtils;
 
 import java.util.Calendar;
 
-
 public class Calendarist extends CalendaristBase {
-
-
 
     /**
      * 从阴历开始转换
