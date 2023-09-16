@@ -1,7 +1,7 @@
 package org.hothub.calendarist.pojo;
 
 import org.hothub.calendarist.base.TermType;
-import org.hothub.calendarist.core.feature.ISolarTermFeature;
+import org.hothub.calendarist.core.feature.ITermFeature;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 import java.time.DayOfWeek;
@@ -10,7 +10,7 @@ import java.util.Calendar;
 /**
  * 阳历日期
  */
-public class SolarDate extends CalendaristDate implements ISolarTermFeature {
+public class SolarDate extends CalendaristDate implements ITermFeature {
 
     /**
      * 星期

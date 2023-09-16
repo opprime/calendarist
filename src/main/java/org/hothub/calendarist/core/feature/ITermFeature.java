@@ -2,7 +2,7 @@ package org.hothub.calendarist.core.feature;
 
 import org.hothub.calendarist.base.TermType;
 
-public interface ISolarTermFeature {
+public interface ITermFeature {
 
     /**
      * 获取某日期对应的节气

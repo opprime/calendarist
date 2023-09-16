@@ -2,13 +2,13 @@ package org.hothub.calendarist.pojo;
 
 import org.hothub.calendarist.base.TermType;
 import org.hothub.calendarist.core.convert.CalendaristConvert;
-import org.hothub.calendarist.core.feature.ISolarTermFeature;
+import org.hothub.calendarist.core.feature.ITermFeature;
 import org.hothub.calendarist.utils.CalendaristUtils;
 
 /**
  * 阴历日期
  */
-public class LunarDate extends CalendaristDate implements ISolarTermFeature {
+public class LunarDate extends CalendaristDate implements ITermFeature {
 
     //年，中文
     private String yearZh;
