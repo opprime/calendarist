@@ -330,7 +330,42 @@ public class CalendaristUtils {
 
         //Y=年代数的后2位、D=0.2422、L=闰年数、C取决于节气和年份。
         //寿星通用公式  num =[Y * D + C] - L
-        return (int) (year * CalendaristConstants.SOLAR_TERM_RATIO + ratio - leapCount);
+        int day = (int) (year * CalendaristConstants.SOLAR_TERM_RATIO + ratio - leapCount);
+
+        //寿星公式，特殊情况处理。https://www.jianshu.com/p/1f814c6bb475
+        if (termType == TermType.YUSHUI && solarYear == 2026) {
+            day--;
+        } else if (termType == TermType.LIXIA && solarYear == 1911) {
+            day++;
+        } else if (termType == TermType.XIAOMAN && solarYear == 2008) {
+            day++;
+        } else if (termType == TermType.MANGZHONG && solarYear == 1902) {
+            day++;
+        } else if (termType == TermType.XIAOSHU && (solarYear == 1925 || solarYear == 2016)) {
+            day++;
+        } else if (termType == TermType.DASHU && solarYear == 1922) {
+            day++;
+        } else if (termType == TermType.LIQIU && solarYear == 2002) {
+            day++;
+        } else if (termType == TermType.QIUFEN && solarYear == 1942) {
+            day++;
+        } else if (termType == TermType.SHUANGJIANG && solarYear == 2089) {
+            day++;
+        } else if (termType == TermType.LIDONG && solarYear == 2089) {
+            day++;
+        } else if (termType == TermType.XIAOXUE && solarYear == 1978) {
+            day++;
+        } else if (termType == TermType.DONGZHI && solarYear == 2021) {
+            day--;
+        } else if (termType == TermType.XIAOHAN && solarYear == 1982) {
+            day++;
+        } else if (termType == TermType.XIAOHAN && solarYear == 2019) {
+            day--;
+        } else if (termType == TermType.DAHAN && (solarYear == 2000 || solarYear == 2082)) {
+            day++;
+        }
+
+        return day;
     }
 
 
